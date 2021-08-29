@@ -1,0 +1,23 @@
+{
+  "name": "preact",
+  "version": "1.0.0",
+  "description": "Simple React",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaigeWw/PReact.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PaigeWw/PReact/issues"
+  },
+  "homepage": "https://github.com/PaigeWw/PReact#readme",
+  "dependencies": {
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0"
+  }
+}
