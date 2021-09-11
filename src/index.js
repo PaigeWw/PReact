@@ -1,13 +1,16 @@
-import PReact from './preact/index'
+import React from '../preact/index.js'
 
 function Counter() {
-    const [state, setState] = PReact.useState(1)
+    const [state, setState] = React.useState(1)
     return (
-      <h1 onClick={() => setState(c => c + 1)}>
+      <h1 onClick={() => {
+          console.log('onclick---')
+          setState(c => c + 1)
+          }}>
         Count: {state}
       </h1>
     )
   }
   const element = <Counter />
   const container = document.getElementById("root")
-  PReact.render(element, container)
+  React.render(element, container)

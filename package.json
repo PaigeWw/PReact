@@ -1,23 +1,30 @@
 {
-  "name": "preact",
-  "version": "1.0.0",
-  "description": "Simple React",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/PaigeWw/PReact.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/PaigeWw/PReact/issues"
-  },
-  "homepage": "https://github.com/PaigeWw/PReact#readme",
-  "dependencies": {
-    "webpack": "^5.51.1",
-    "webpack-cli": "^4.8.0"
-  }
+    "name": "preact",
+    "version": "1.0.0",
+    "description": "Simple React",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "webpack serve --open"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/PaigeWw/PReact.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/PaigeWw/PReact/issues"
+    },
+    "homepage": "https://github.com/PaigeWw/PReact#readme",
+    "dependencies": {
+        "@babel/core": "^7.15.0",
+        "@babel/preset-env": "^7.15.0",
+        "@babel/preset-react": "^7.14.5",
+        "babel-loader": "^8.2.2",
+        "html-webpack-plugin": "^5.3.2",
+        "webpack": "^5.51.1",
+        "webpack-cli": "^4.8.0",
+        "webpack-dev-server": "^4.0.0"
+    }
 }
