@@ -1,22 +1,22 @@
-import React, {useState, useEffect} from 'react'
+import React from "react";
+import ReactDOM from "react-dom";
 
-import ReactDOM from 'react-dom';
-function Counter() {
-    const [state, setState] = useState(1)
-    useEffect(() => {
-        const id = setInterval(()=>{
-            setState(c => c+1)
-        }, 1000)
-        return () => {
-            clearInterval(id)
-        }
-    }, [])
-    return (
-      <h1>
-        Time: {state}
-      </h1>
-    )
-  }
-  const element = <Counter />
-  const container = document.getElementById("root")
-  ReactDOM.render(element, container)
+function App() {
+  const dataList = [
+    { id: 1, name: "A" },
+    { id: 2, name: "B" },
+    { id: 3, name: "C" },
+    { id: 4, name: "D" },
+    { id: 5, name: "E" },
+  ];
+  return (
+    <div>
+      {dataList.map((x) => (
+        <h1 key={x.id}>{x.name}</h1>
+      ))}
+    </div>
+  );
+}
+
+const container = document.getElementById("root");
+ReactDOM.render(App(), container);
