@@ -57,10 +57,9 @@ class App extends React.Component {
     this.scrollParent = this.getScrollParent(node);
     if (this.checkVisible(node)) {
       this.setState({ ...this.state, loading: false });
-    } else {
-      const scrollParent = this.scrollParent || window;
-      scrollParent.addEventListener("scroll", this.onScroll);
-    }
+    } 
+    const scrollParent = this.scrollParent || window;
+    scrollParent.addEventListener("scroll", this.onScroll);
   }
 
   componentDidUpdate() {
@@ -73,33 +72,29 @@ class App extends React.Component {
     scrollParent.removeEventListener("scroll", this.onScroll);
   }
   onScroll = throttle(() => {
-    const node = this.ref.current;
+    const node = this.wrapperRef.current;
 
     if (this.checkVisible(node)) {
-      this.setState({ ...this.state, loading: false });
+    //   this.setState({ ...this.state, loading: false });
     } else {
+      this.state.dataList.shift()
+
       this.setState({
         ...this.state,
-
-        dataList: this.state.concat({
-          id: this.state.dataList.length,
-          name: String.fromCharCode(
-            "A".charCodeAt(0) + this.state.dataList.length
-          ),
-        }),
+        dataList: this.state.dataList.concat([{
+            id: this.state.dataList[this.state.dataList.length - 1].id+1,
+            name: String.fromCharCode(this.state.dataList[this.state.dataList.length - 1].name.charCodeAt(0) + 1)
+        }]),
       });
     }
   }, 200);
 
   checkVisible = (node) => {
     if (node) {
-      const { top, bottom, left, right } = node.getBoundingClientRect();
-      return (
-        bottom > 0 &&
-        top < window.innerHeight &&
-        left < window.innerWidth &&
-        right > 0
-      );
+      const {bottom} = node.getBoundingClientRect();
+    //   console.log({ top, bottom, left, right })
+      
+      return bottom > window.innerHeight;
     }
     return false;
   };
