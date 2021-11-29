@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
-
+import deepCopy from "../js-practice/deep-copy-obj";
+import simulationNew from "../js-practice/simulation-new";
 const urls = [
   "/api/user/getList",
   "/api/user/getLeaveInfos?start=2021-08-30&end=2021-09-26",
@@ -13,6 +14,10 @@ const urls = [
 ];
 const arr = [1, 2, 3, 4, 5, 6, [7, 8, 9, 10], 7, 8, 11, 12, 13];
 function App() {
+  useEffect(() => {
+    window.deepCopy = deepCopy;
+    window.simulationNew = simulationNew;
+  }, []);
   const fetchFun = async function (e) {
     for (let i = 0; i < urls.length; i++) {
       const data = await fetch(urls[i]);
@@ -64,6 +69,7 @@ function App() {
       <h5 onClick={fetchAny}>Promise.any</h5>
       <h3>Programming</h3>
       <h5>实现一个深拷贝</h5>
+      <h5>柯里化函数实现</h5>
       <h5>实现JS的call和apply方法</h5>
       <h5>实现Array.prototype.reduce</h5>
       <h5>实现Function.prototype.apply</h5>
