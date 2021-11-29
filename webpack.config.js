@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/class-component.js",
+  entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
@@ -27,6 +27,12 @@ module.exports = {
     }),
   ],
   devServer: {
-    port: 3001,
+    port: 3333,
+    proxy: {
+      "/api": {
+        target: "http://localhost:3001",
+        pathRewrite: { "^/api": "" },
+      },
+    },
   },
 };
