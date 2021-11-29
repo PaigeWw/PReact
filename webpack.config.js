@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/class-component.js",
+  entry: "./src/fun-component.js",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "bundle.js",
