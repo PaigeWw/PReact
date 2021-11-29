@@ -31,7 +31,10 @@
         "html-webpack-plugin": "^5.3.2",
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
+<<<<<<< HEAD
         "shared": "^0.2.0",
+=======
+>>>>>>> 8aa183034c299d391c7d99127b8ce0b682353e53
         "vite": "^2.6.14",
         "webpack": "^5.51.1",
         "webpack-cli": "^4.8.0",
