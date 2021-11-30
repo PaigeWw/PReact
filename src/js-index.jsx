@@ -68,15 +68,15 @@ function App() {
       <h5 onClick={fetchRace}>Promise.race</h5>
       <h5 onClick={fetchAny}>Promise.any</h5>
       <h3>Programming</h3>
-      <h5>实现一个深拷贝</h5>
+      <h5>v 实现一个深拷贝</h5>
       <h5>柯里化函数实现</h5>
       <h5>实现JS的call和apply方法</h5>
       <h5>实现Array.prototype.reduce</h5>
       <h5>实现Function.prototype.apply</h5>
       <h5>实现Function.prototype.bind</h5>
       <h5>实现add(1)(2)(3)(4)=10</h5>
-      <h5>模拟new操作</h5>
-      <h5>模拟instanceof操作</h5>
+      <h5>v 模拟new操作</h5>
+      <h5>模拟typeof、instanceof操作</h5>
       <h5>实现一个大文件上传和断点续传</h5>
       <h5>
         JS实现一个带并发限制的异步调度器Scheduler，保证同时运行的任务最多有两个。完善下面代码的Scheduler类，使以下程序能够正常输出：
@@ -127,7 +127,6 @@ function App() {
          
           `}
       </pre>
-
       <h5></h5>
     </div>
   );

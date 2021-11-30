@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js run vite
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js dev
 
 PATH: 
   C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\OpenVPN\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\PuTTY\;C:\Program Files\MongoDB\Server\4.2\bin\;C:\Program Files\MongoDB\Server\4.4\bin\;C:\Go\bin;C:\Program Files\mingw64\bin;C:\Users\uisee\AppData\Local\Microsoft\WindowsApps;C:\Users\uisee\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\uisee\AppData\Local\BypassRuntm;C:\Users\uisee\AppData\Roaming\npm;C:\Users\uisee\AppData\Local\Yarn\bin;C:\Program Files\Docker Toolbox;D:\mysql\mysql-8.0.19\bin;C:\Users\uisee\AppData\Local\Microsoft\WindowsApps;C:\Users\uisee\go\bin;C:\Program Files\MongoDB\Server\4.4\bin;C:\Program Files\@bdeefeopdev-cli\bin
@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  SyntaxError: D:\workspace\demo\PReact\package.json: Unexpected token < in JSON at position 1027
+  SyntaxError: D:\workspace\demo\PReact\package.json: Unexpected token v in JSON at position 308
       at JSON.parse (<anonymous>)
       at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
       at Generator.next (<anonymous>)
@@ -30,13 +30,14 @@ npm manifest:
       "scripts": {
           "test": "echo \"Error: no test specified\" && exit 1",
           "dev": "webpack serve --open",
-          "vite": "vite"
+          "vite-react-source": "vite --config vite.config.react.source.js",
+          vite: "vite"
       },
       "repository": {
           "type": "git",
           "url": "git+https://github.com/PaigeWw/PReact.git"
       },
-      "author": "",
+      "author": "PaigeWw",
       "license": "ISC",
       "bugs": {
           "url": "https://github.com/PaigeWw/PReact/issues"
@@ -55,10 +56,6 @@ npm manifest:
           "html-webpack-plugin": "^5.3.2",
           "react": "^17.0.2",
           "react-dom": "^17.0.2",
-  <<<<<<< HEAD
-          "shared": "^0.2.0",
-  =======
-  >>>>>>> 8aa183034c299d391c7d99127b8ce0b682353e53
           "vite": "^2.6.14",
           "webpack": "^5.51.1",
           "webpack-cli": "^4.8.0",

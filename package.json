@@ -6,7 +6,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "webpack serve --open",
-        "vite-react-source": "vite --config vite.config.react.source.js"
+        "vite-react-source": "vite --config vite.config.react.source.js",
+        "vite": "vite"
     },
     "repository": {
         "type": "git",
