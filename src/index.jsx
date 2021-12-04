@@ -52,4 +52,11 @@ function App() {
 }
 
 const container = document.getElementById("root");
-ReactDOM.render(<App />, container);
+let intan = ReactDOM.render(<App />, container, function () {
+  console.log("this", this);
+});
+console.dir(intan);
+/**
+ * concurrent 模式： ReactDOM.createRoot(rootNode).render(<App />)
+ */
+// ReactDOM.createRoot(document.getElementById("root")).render(<App />);

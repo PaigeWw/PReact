@@ -4,124 +4,97 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- *      
+ *
  */
-
-                                                    
-                                                                
-                                                                    
-                                                                       
-
-                        
-                                        
-                  
-                           
-     
-  
-
-                           
-                    
-                      
-                                                 
-                                                
-                                               
-       
-    
-     
-  
 
 import {
   isContainerMarkedAsRoot,
   markContainerAsRoot,
   unmarkContainerAsRoot,
-} from './ReactDOMComponentTree';
-import {listenToAllSupportedEvents} from '../events/DOMPluginEventSystem';
-import {eagerlyTrapReplayableEvents} from '../events/ReactDOMEventReplaying';
+} from "./ReactDOMComponentTree";
+import { listenToAllSupportedEvents } from "../events/DOMPluginEventSystem";
+import { eagerlyTrapReplayableEvents } from "../events/ReactDOMEventReplaying";
 import {
   ELEMENT_NODE,
   COMMENT_NODE,
   DOCUMENT_NODE,
   DOCUMENT_FRAGMENT_NODE,
-} from '../shared/HTMLNodeType';
-import {ensureListeningTo} from './ReactDOMComponent';
+} from "../shared/HTMLNodeType";
+import { ensureListeningTo } from "./ReactDOMComponent";
 
 import {
   createContainer,
   updateContainer,
   findHostInstanceWithNoPortals,
   registerMutableSourceForHydration,
-} from 'react-reconciler/src/ReactFiberReconciler';
-import invariant from 'shared/invariant';
-import {enableEagerRootListeners} from 'shared/ReactFeatureFlags';
+} from "react-reconciler/src/ReactFiberReconciler";
+import invariant from "shared/invariant";
+import { enableEagerRootListeners } from "shared/ReactFeatureFlags";
 import {
   BlockingRoot,
   ConcurrentRoot,
   LegacyRoot,
-} from 'react-reconciler/src/ReactRootTags';
+} from "react-reconciler/src/ReactRootTags";
 
-function ReactDOMRoot(container           , options                    ) {
+function ReactDOMRoot(container, options) {
   this._internalRoot = createRootImpl(container, ConcurrentRoot, options);
 }
 
-function ReactDOMBlockingRoot(
-  container           ,
-  tag         ,
-  options                    ,
-) {
+function ReactDOMBlockingRoot(container, tag, options) {
   this._internalRoot = createRootImpl(container, tag, options);
 }
 
-ReactDOMRoot.prototype.render = ReactDOMBlockingRoot.prototype.render = function(
-  children               ,
-)       {
-  const root = this._internalRoot;
-  if (__DEV__) {
-    if (typeof arguments[1] === 'function') {
-      console.error(
-        'render(...): does not support the second callback argument. ' +
-          'To execute a side effect after rendering, declare it in a component body with useEffect().',
-      );
-    }
-    const container = root.containerInfo;
+ReactDOMRoot.prototype.render = ReactDOMBlockingRoot.prototype.render =
+  function (children) {
+    const root = this._internalRoot;
+    if (__DEV__) {
+      if (typeof arguments[1] === "function") {
+        console.error(
+          "render(...): does not support the second callback argument. " +
+            "To execute a side effect after rendering, declare it in a component body with useEffect()."
+        );
+      }
+      const container = root.containerInfo;
 
-    if (container.nodeType !== COMMENT_NODE) {
-      const hostInstance = findHostInstanceWithNoPortals(root.current);
-      if (hostInstance) {
-        if (hostInstance.parentNode !== container) {
-          console.error(
-            'render(...): It looks like the React-rendered content of the ' +
-              'root container was removed without using React. This is not ' +
-              'supported and will cause errors. Instead, call ' +
-              "root.unmount() to empty a root's container.",
-          );
+      console.log("COMMENT_NODE", COMMENT_NODE);
+      console.log("container.nodeType", container.nodeType);
+      console.log("container.nodeName", container.nodeName);
+
+      if (container.nodeType !== COMMENT_NODE) {
+        const hostInstance = findHostInstanceWithNoPortals(root.current);
+        if (hostInstance) {
+          if (hostInstance.parentNode !== container) {
+            console.error(
+              "render(...): It looks like the React-rendered content of the " +
+                "root container was removed without using React. This is not " +
+                "supported and will cause errors. Instead, call " +
+                "root.unmount() to empty a root's container."
+            );
+          }
         }
       }
     }
-  }
-  updateContainer(children, root, null, null);
-};
+    updateContainer(children, root, null, null);
+  };
 
-ReactDOMRoot.prototype.unmount = ReactDOMBlockingRoot.prototype.unmount = function()       {
-  if (__DEV__) {
-    if (typeof arguments[0] === 'function') {
-      console.error(
-        'unmount(...): does not support a callback argument. ' +
-          'To execute a side effect after rendering, declare it in a component body with useEffect().',
-      );
+ReactDOMRoot.prototype.unmount = ReactDOMBlockingRoot.prototype.unmount =
+  function () {
+    if (__DEV__) {
+      if (typeof arguments[0] === "function") {
+        console.error(
+          "unmount(...): does not support a callback argument. " +
+            "To execute a side effect after rendering, declare it in a component body with useEffect()."
+        );
+      }
     }
-  }
-  const root = this._internalRoot;
-  const container = root.containerInfo;
-  updateContainer(null, root, null, () => {
-    unmarkContainerAsRoot(container);
-  });
-};
+    const root = this._internalRoot;
+    const container = root.containerInfo;
+    updateContainer(null, root, null, () => {
+      unmarkContainerAsRoot(container);
+    });
+  };
 
-function createRootImpl(
-  container           ,
-  tag         ,
-  options                    ,
-) {
+function createRootImpl(container, tag, options) {
   // Tag is either LegacyRoot or Concurrent Root
   const hydrate = options != null && options.hydrate === true;
   const hydrationCallbacks =
@@ -136,6 +109,7 @@ function createRootImpl(
   const containerNodeType = container.nodeType;
 
   if (enableEagerRootListeners) {
+    // 添加事件监听
     const rootContainerElement =
       container.nodeType === COMMENT_NODE ? container.parentNode : container;
     listenToAllSupportedEvents(rootContainerElement);
@@ -149,12 +123,12 @@ function createRootImpl(
       // with the hoisted containerNodeType. If we inline
       // it, then Flow doesn't complain. We intentionally
       // hoist it to reduce code-size.
-      eagerlyTrapReplayableEvents(container, ((doc     )          ));
+      eagerlyTrapReplayableEvents(container, doc);
     } else if (
       containerNodeType !== DOCUMENT_FRAGMENT_NODE &&
       containerNodeType !== DOCUMENT_NODE
     ) {
-      ensureListeningTo(container, 'onMouseEnter', null);
+      ensureListeningTo(container, "onMouseEnter", null);
     }
   }
 
@@ -168,45 +142,36 @@ function createRootImpl(
   return root;
 }
 
-export function createRoot(
-  container           ,
-  options              ,
-)           {
+export function createRoot(container, options) {
   invariant(
     isValidContainer(container),
-    'createRoot(...): Target container is not a DOM element.',
+    "createRoot(...): Target container is not a DOM element."
   );
   warnIfReactDOMContainerInDEV(container);
   return new ReactDOMRoot(container, options);
 }
 
-export function createBlockingRoot(
-  container           ,
-  options              ,
-)           {
+export function createBlockingRoot(container, options) {
   invariant(
     isValidContainer(container),
-    'createRoot(...): Target container is not a DOM element.',
+    "createRoot(...): Target container is not a DOM element."
   );
   warnIfReactDOMContainerInDEV(container);
   return new ReactDOMBlockingRoot(container, BlockingRoot, options);
 }
 
-export function createLegacyRoot(
-  container           ,
-  options              ,
-)           {
+export function createLegacyRoot(container, options) {
   return new ReactDOMBlockingRoot(container, LegacyRoot, options);
 }
 
-export function isValidContainer(node       )          {
+export function isValidContainer(node) {
   return !!(
     node &&
     (node.nodeType === ELEMENT_NODE ||
       node.nodeType === DOCUMENT_NODE ||
       node.nodeType === DOCUMENT_FRAGMENT_NODE ||
       (node.nodeType === COMMENT_NODE &&
-        (node     ).nodeValue === ' react-mount-point-unstable '))
+        node.nodeValue === " react-mount-point-unstable "))
   );
 }
 
@@ -214,28 +179,28 @@ function warnIfReactDOMContainerInDEV(container) {
   if (__DEV__) {
     if (
       container.nodeType === ELEMENT_NODE &&
-      ((container     )         ).tagName &&
-      ((container     )         ).tagName.toUpperCase() === 'BODY'
+      container.tagName &&
+      container.tagName.toUpperCase() === "BODY"
     ) {
       console.error(
-        'createRoot(): Creating roots directly with document.body is ' +
-          'discouraged, since its children are often manipulated by third-party ' +
-          'scripts and browser extensions. This may lead to subtle ' +
-          'reconciliation issues. Try using a container element created ' +
-          'for your app.',
+        "createRoot(): Creating roots directly with document.body is " +
+          "discouraged, since its children are often manipulated by third-party " +
+          "scripts and browser extensions. This may lead to subtle " +
+          "reconciliation issues. Try using a container element created " +
+          "for your app."
       );
     }
     if (isContainerMarkedAsRoot(container)) {
       if (container._reactRootContainer) {
         console.error(
-          'You are calling ReactDOM.createRoot() on a container that was previously ' +
-            'passed to ReactDOM.render(). This is not supported.',
+          "You are calling ReactDOM.createRoot() on a container that was previously " +
+            "passed to ReactDOM.render(). This is not supported."
         );
       } else {
         console.error(
-          'You are calling ReactDOM.createRoot() on a container that ' +
-            'has already been passed to createRoot() before. Instead, call ' +
-            'root.render() on the existing root instead if you want to update it.',
+          "You are calling ReactDOM.createRoot() on a container that " +
+            "has already been passed to createRoot() before. Instead, call " +
+            "root.render() on the existing root instead if you want to update it."
         );
       }
     }

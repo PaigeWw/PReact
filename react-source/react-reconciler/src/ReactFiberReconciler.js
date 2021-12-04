@@ -4,10 +4,12 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  *
- *      
+ *
  */
 
-import {enableNewReconciler} from 'shared/ReactFeatureFlags';
+import { enableNewReconciler } from "shared/ReactFeatureFlags";
+
+console.log("enableNewReconciler", enableNewReconciler);
 
 // The entry file imports either the old or new version of the reconciler.
 // During build and testing, this indirection is always shimmed with the actual
@@ -52,7 +54,7 @@ import {
   registerMutableSourceForHydration as registerMutableSourceForHydration_old,
   runWithPriority as runWithPriority_old,
   getCurrentUpdateLanePriority as getCurrentUpdateLanePriority_old,
-} from './ReactFiberReconciler.old';
+} from "./ReactFiberReconciler.old";
 
 import {
   createContainer as createContainer_new,
@@ -92,7 +94,7 @@ import {
   registerMutableSourceForHydration as registerMutableSourceForHydration_new,
   runWithPriority as runWithPriority_new,
   getCurrentUpdateLanePriority as getCurrentUpdateLanePriority_new,
-} from './ReactFiberReconciler.new';
+} from "./ReactFiberReconciler.new";
 
 export const createContainer = enableNewReconciler
   ? createContainer_new

@@ -126,6 +126,10 @@ export const enableLegacyFBSupport = false;
 // not currently rendering. We treat them the same as if they came from an
 // interleaved event. Remove this flag once we have migrated to the
 // new behavior.
+// 官方不支持在渲染阶段进行的更新。
+// 但当它们确实发生时，我们会通过拾取当前未渲染的车道将它们推迟到后续渲染。
+// 我们对待它们的态度就像它们来自交错事件一样。
+// 迁移到新行为后，请删除此标志。
 export const deferRenderPhaseUpdateToNextBatch = true;
 
 // Replacement for runWithPriority in React internals.
